@@ -1,3 +1,30 @@
+// var blueDefence = document.createElement("div")
+// blueDefence.className = "card b"
+// var symbol = document.createElement("span");
+// symbol.className = "symbol"
+// symbol.appendChild(document.createTextNode("BD"));
+// blueDefence.appendChild(symbol)
+
+function createCard(backgroundColor, text) {
+
+    var card = document.createElement("div")
+    card.className = "card"
+    card.style.backgroundColor = backgroundColor
+
+    var cardText = document.createElement("span")
+    cardText.className = "cardText"
+    cardText.appendChild(document.createTextNode(text))
+
+    card.appendChild(cardText)
+    return card
+}
+
+const BD = createCard("#00f", "BD")
+const BA = createCard("#00f", "BA")
+const RD = createCard("#f00", "RD")
+const RA = createCard("#f00", "RA")
+const totenkopf = createCard("#333", "\u2620")
+
 function generateCard() {
     var suitsInner = [
         "hearts",

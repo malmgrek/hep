@@ -1,6 +1,59 @@
 /* card itself
 ********************************************************************/
 
+.cardSet .card {
+   display: inline-block;
+   width: 5.0em;
+   height: 5.0em;
+   border: 1px solid #666;
+   border-radius: .3em;
+   -moz-border-radius: .3em;
+   -webkit-border-radius: .3em;
+   -khtml-border-radius: .3em;
+   padding: .25em;
+   margin: 0 .5em .5em 0;
+   text-align: center;
+   font-size: 1.2em;
+   /* @change: adjust this value to make bigger or smaller cards */
+   font-weight: normal;
+   font-family: Arial, sans-serif;
+   position: relative;
+   background-color: #fff;
+   -moz-box-shadow: .2em .2em .5em #333;
+   -webkit-box-shadow: .2em .2em .5em #333;
+   box-shadow: .2em .2em .5em #333;
+}
+
+
+.cardSet .card.b {
+   background-color: #00f;
+}
+
+
+.cardSet .card.r {
+   background-color: #f00;
+}
+
+
+.cardSet .card.k {
+   background-color: #333;
+}
+
+
+.cardSet .card .cardText {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+
+
 .playingCards .card {
    display: inline-block;
    width: 3.3em;
