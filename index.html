@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Randomizer</title>
+        <title>Hep!</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -16,27 +16,19 @@
     </head>
 
     <body>
-        <button onClick="generateCard()">
-            Generate Card
-        </button>
-        <button onClick="flush()">
-            Flush
-        </button>
+        <button onClick="drawCard(cards)">Draw card</button>
+        <button onClick="wipe()">Wipe</button>
+        <input type="number"
+               id="number-of-cards"
+               min=4
+               value=4
+               autocomplete="off"
+               oninput="wipe()">
         <br>
         <br>
+        <!-- TODO: modify style with padding-->
         <div id="cards" class="cardSet"></div>
-        <div id="cardArea" class="playingCards simpleCards">
-            <div class="card rank-9 spades">
-                <span class="rank">666</span>
-                <span class="suit">&spades;</span>
-            </div>
-        </div>
 
     </body>
-    <script>
-     document.getElementById("cards").appendChild(BD)
-     document.getElementById("cards").appendChild(RA)
-     document.getElementById("cards").appendChild(totenkopf)
-    </script>
 
 </html>

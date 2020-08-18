@@ -1,66 +1,63 @@
-// var blueDefence = document.createElement("div")
-// blueDefence.className = "card b"
-// var symbol = document.createElement("span");
-// symbol.className = "symbol"
-// symbol.appendChild(document.createTextNode("BD"));
-// blueDefence.appendChild(symbol)
+/*
+ * TODO: Features
+ * - If number of participants changes, then flush
+ *   - Can be done with event listeners
+ * - New card should appear so that it is visible
+ *   on mobile phone screen at all times
+ *
+ */
 
-function createCard(backgroundColor, text) {
 
-    var card = document.createElement("div")
+function createCard(backgroundColor, text, fontSize = "50px") {
+
+    let card = document.createElement("div")
     card.className = "card"
     card.style.backgroundColor = backgroundColor
 
-    var cardText = document.createElement("span")
+    let cardText = document.createElement("span")
     cardText.className = "cardText"
+    cardText.style.fontSize = fontSize
     cardText.appendChild(document.createTextNode(text))
 
     card.appendChild(cardText)
     return card
 }
 
+
 const BD = createCard("#00f", "BD")
 const BA = createCard("#00f", "BA")
 const RD = createCard("#f00", "RD")
 const RA = createCard("#f00", "RA")
-const totenkopf = createCard("#333", "\u2620")
+const totenkopf = createCard("#666", "\u2620", "80px")
 
-function generateCard() {
-    var suitsInner = [
-        "hearts",
-        "spades",
-        "diamond",
-        "clubs"
-    ];
-    var suitsOuter = [
-        "hearts",
-        "spades",
-        "diams",
-        "clubs"
-    ];
-    var ranksInner = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K']
-    var ranksOuter = ['a', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'j', 'q', 'k']
-    var suitIndex = Math.floor(Math.random() * suitsOuter.length)
-    var suit = [
-        suitsOuter[suitIndex],
-        suitsInner[suitIndex]
-    ];
-    var rankIndex = Math.floor(Math.random() * ranksOuter.length);
-    var rank = [
-        ranksOuter[rankIndex],
-        ranksInner[rankIndex]
-    ];
-    document.getElementById(
-        "cardArea"
-    ).innerHTML += "<div class='card rank-"
-        + rank[0] + " "
-        + suit[0]
-        + "'><span class='rank'>"
-        + rank[1]
-        + "</span><span class='suit'>&"
-        + suit[1] + ";</span></div>";
+
+function createCardArray(length = 4) {
+    return [BD, BA, RD, RA].concat(
+        Array(
+            // Number(
+            //     document.getElementById("number-of-cards").value
+            // ) - 4
+            length - 4
+        ).fill(totenkopf)
+    )
 }
 
-function flush() {
-    document.getElementById("cardArea").innerHTML = "";
+
+let cards = createCardArray()
+
+
+function drawCard(cards) {
+    // TODO: cards to input
+    index = Math.floor(Math.random() * cards.length)
+    document.getElementById("cards").appendChild(
+        cards.splice(index, 1).pop().cloneNode(true)  // Adds same element many times
+    )
+}
+
+
+function wipe() {
+    document.getElementById("cards").innerHTML = ""
+    cards = createCardArray(
+        document.getElementById("number-of-cards").value
+    )
 }
