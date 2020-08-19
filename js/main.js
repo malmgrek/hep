@@ -1,10 +1,9 @@
 /*
  * TODO: Features
- * - If number of participants changes, then flush
- *   - Can be done with event listeners
+ * - When card list is empty, write an info message
+ * - All CSS to main.js
  * - New card should appear so that it is visible
  *   on mobile phone screen at all times
- * - All CSS to main.js
  *
  */
 
@@ -44,7 +43,12 @@ function createCardArray(length = 4) {
 }
 
 
+// ===============================
+// NOTE: Let's create this mutable
+//       object here!
+//
 let cards = createCardArray()
+// ===============================
 
 
 function drawCard(cards) {
@@ -73,6 +77,10 @@ function createButton(text, onclick) {
     return elem
 }
 
+
+//
+// Build document body
+//
 
 document.body.appendChild(createButton("Draw", () => drawCard(cards)))
 document.body.appendChild(createButton("Wipe", wipe))
