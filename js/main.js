@@ -4,6 +4,7 @@
  *   - Can be done with event listeners
  * - New card should appear so that it is visible
  *   on mobile phone screen at all times
+ * - All CSS to main.js
  *
  */
 
@@ -47,7 +48,7 @@ let cards = createCardArray()
 
 
 function drawCard(cards) {
-    // TODO: cards to input
+    // Draw (and remove) a card
     index = Math.floor(Math.random() * cards.length)
     document.getElementById("cards").appendChild(
         cards.splice(index, 1).pop().cloneNode(true)  // Adds same element many times
@@ -56,8 +57,42 @@ function drawCard(cards) {
 
 
 function wipe() {
+    // Wipe the card space
     document.getElementById("cards").innerHTML = ""
     cards = createCardArray(
         document.getElementById("number-of-cards").value
     )
 }
+
+
+
+function createButton(text, onclick) {
+    let elem = document.createElement("button")
+    elem.onclick = onclick
+    elem.appendChild(document.createTextNode(text))
+    return elem
+}
+
+
+document.body.appendChild(createButton("Draw", () => drawCard(cards)))
+document.body.appendChild(createButton("Wipe", wipe))
+document.body.appendChild((
+    () => {
+        let elem = document.createElement("input")
+        elem.type = "number"
+        elem.id = "number-of-cards"
+        elem.min = 4
+        elem.value = 4
+        elem.autocomplete = "off"
+        elem.oninput = wipe
+        return elem
+    }
+)())
+document.body.appendChild((
+    () => {
+        let elem = document.createElement("div")
+        elem.id = "cards"
+        elem.className = "cardSet"
+        return elem
+    }
+)())
