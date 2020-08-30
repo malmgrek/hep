@@ -1,0 +1,5 @@
+#+TITLE: Readme
+
+Everyone who has played the great game of foosball knows how difficult it is to quickly random draw the four teams. No need to worry anymore, with this app you can do it and only it.
+
+Link: [[https://malmgrek.github.io/hep/]]
