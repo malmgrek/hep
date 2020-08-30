@@ -1,10 +1,5 @@
 /*
- * TODO: Features
- * - When card list is empty, write an info message
- * - All CSS to main.js
- * - New card should appear so that it is visible
- *   on mobile phone screen at all times
- *
+ * Hep! Random draw foosball teams.
  */
 
 
@@ -29,7 +24,7 @@ const BA = createCard("#1e90ff", "BA")
 const RD = createCard("#dc143c", "RD")
 const RA = createCard("#dc143c", "RA")
 const totenkopf = createCard("#666", "\u2620", "20vw")
-const radioactive = createCard("#666", "\u2622", "20vw")
+const radioactive = createCard("#ffd700", "\u2622", "20vw")
 const fu = createCard("#666", "🖕", "80px")
 
 
@@ -41,36 +36,35 @@ function createCards(length = 4) {
 }
 
 
-// ===============================
+// ====================================
 // NOTE: Let's create this mutable
-//       object here!
+//       object here.
 //
 let cards = {array: [], mutated: false}
-// TODO: let deck = [...cards].reverse()
-// ===============================
+// ====================================
 
 
 function drawCard(cards) {
-    // Draw (and remove) a card
     index = Math.floor(Math.random() * cards.array.length)
-    // document.getElementById("container").innerHTML = ""
     document.getElementById("container").appendChild(
-        cards.array.splice(index, 1).pop().cloneNode(true)  // Adds same element many times
+        // Adds same element (possibly) many times
+        cards.array.splice(index, 1).pop().cloneNode(true)
     )
     cards.mutated = true
 }
 
 
-function createContainer() {
+function createContainer(d) {
 
     const mutate = () => {
         cards.mutated = true
     }
 
-    let container = document.createElement("div")
+    let container = d.createElement("div")
     container.id = "container"
     container.onclick = () => {
-        (cards.mutated && cards.array.length) ? drawCard(cards) : mutate()
+        (cards.mutated && cards.array.length) ?
+            drawCard(cards) : mutate()
     }
     return container
 }
@@ -90,13 +84,16 @@ function createPanel(d) {
 
     let start = d.createElement("button")
     start.id = "start"
-    start.appendChild(d.createTextNode("Start"))
+    start.appendChild(d.createTextNode("Hep!"))
     start.onclick = () => {
         cards = createCards(
             d.getElementById("number-of-cards").value
         )
         container = d.getElementById("container")
         container.innerHTML = ""
+        container.appendChild(
+            createInfo(d, "Tap screen to draw cards!")
+        )
     }
 
     panel.appendChild(input)
@@ -106,10 +103,27 @@ function createPanel(d) {
 }
 
 
+function createInfo(d, text) {
+    div = d.createElement("div")
+    p = d.createElement("p")
+    p.appendChild(d.createTextNode(text))
+    p.style.fontSize = "5vh"
+    p.style.fontFamily = "Courier"
+    div.appendChild(p)
+    return div
+}
+
+
 //
 // Build document body
 //
 
-container = createContainer()
+container = createContainer(document)
+container.appendChild(
+    createInfo(
+        document,
+        "Select the number of players and click Hep!"
+    )
+)
 container.appendChild(createPanel(document))
 document.body.appendChild(container)
