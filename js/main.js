@@ -8,7 +8,7 @@
  */
 
 
-function createCard(backgroundColor, text, fontSize = "50px") {
+function createCard(backgroundColor, text, fontSize = "20vw") {
 
     let card = document.createElement("div")
     card.className = "card"
@@ -28,8 +28,8 @@ const BD = createCard("#1e90ff", "BD")
 const BA = createCard("#1e90ff", "BA")
 const RD = createCard("#dc143c", "RD")
 const RA = createCard("#dc143c", "RA")
-const totenkopf = createCard("#666", "\u2620", "80px")
-const radioactive = createCard("#666", "\u2622", "80px")
+const totenkopf = createCard("#666", "\u2620", "20vw")
+const radioactive = createCard("#666", "\u2622", "20vw")
 const fu = createCard("#666", "🖕", "80px")
 
 
