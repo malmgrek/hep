@@ -24,22 +24,18 @@ function createCard(backgroundColor, text, fontSize = "50px") {
 }
 
 
-const BD = createCard("#00f", "BD")
-const BA = createCard("#00f", "BA")
-const RD = createCard("#f00", "RD")
-const RA = createCard("#f00", "RA")
+const BD = createCard("#1e90ff", "BD")
+const BA = createCard("#1e90ff", "BA")
+const RD = createCard("#dc143c", "RD")
+const RA = createCard("#dc143c", "RA")
 const totenkopf = createCard("#666", "\u2620", "80px")
 
 
-function createCardArray(length = 4) {
-    return [BD, BA, RD, RA].concat(
-        Array(
-            // Number(
-            //     document.getElementById("number-of-cards").value
-            // ) - 4
-            length - 4
-        ).fill(totenkopf)
+function createCards(length = 4) {
+    let cardArray = [BD, BA, RD, RA].concat(
+        Array(length - 4).fill(totenkopf)
     )
+    return {array: cardArray, mutated: false}
 }
 
 
@@ -47,34 +43,62 @@ function createCardArray(length = 4) {
 // NOTE: Let's create this mutable
 //       object here!
 //
-let cards = createCardArray()
+let cards = {array: [], mutated: false}
+// TODO: let deck = [...cards].reverse()
 // ===============================
 
 
 function drawCard(cards) {
     // Draw (and remove) a card
-    index = Math.floor(Math.random() * cards.length)
-    document.getElementById("cards").appendChild(
-        cards.splice(index, 1).pop().cloneNode(true)  // Adds same element many times
+    index = Math.floor(Math.random() * cards.array.length)
+    document.getElementById("container").appendChild(
+        cards.array.splice(index, 1).pop().cloneNode(true)  // Adds same element many times
     )
+    cards.mutated = true
 }
 
 
-function wipe() {
-    // Wipe the card space
-    document.getElementById("cards").innerHTML = ""
-    cards = createCardArray(
-        document.getElementById("number-of-cards").value
-    )
+function createContainer() {
+
+    const mutate = () => {
+        cards.mutated = true
+    }
+
+    let container = document.createElement("div")
+    container.id = "container"
+    container.onclick = () => {
+        (cards.mutated && cards.array.length) ? drawCard(cards) : mutate()
+    }
+    return container
 }
 
 
+function createPanel(d) {
 
-function createButton(text, onclick) {
-    let elem = document.createElement("button")
-    elem.onclick = onclick
-    elem.appendChild(document.createTextNode(text))
-    return elem
+    let panel = d.createElement("div")
+    panel.className = "panel"
+
+    let input = d.createElement("input")
+    input.type = "number"
+    input.id = "number-of-cards"
+    input.min = 4
+    input.value = 4
+    input.autocomplete = "off"
+
+    let start = d.createElement("button")
+    start.appendChild(d.createTextNode("Start"))
+    start.onclick = () => {
+        cards = createCards(
+            d.getElementById("number-of-cards").value
+        )
+        container = d.getElementById("container")
+        container.innerHTML = ""
+    }
+
+    panel.appendChild(input)
+    panel.appendChild(start)
+
+    return panel
 }
 
 
@@ -82,25 +106,6 @@ function createButton(text, onclick) {
 // Build document body
 //
 
-document.body.appendChild(createButton("Draw", () => drawCard(cards)))
-document.body.appendChild(createButton("Wipe", wipe))
-document.body.appendChild((
-    () => {
-        let elem = document.createElement("input")
-        elem.type = "number"
-        elem.id = "number-of-cards"
-        elem.min = 4
-        elem.value = 4
-        elem.autocomplete = "off"
-        elem.oninput = wipe
-        return elem
-    }
-)())
-document.body.appendChild((
-    () => {
-        let elem = document.createElement("div")
-        elem.id = "cards"
-        elem.className = "cardSet"
-        return elem
-    }
-)())
+container = createContainer()
+container.appendChild(createPanel(document))
+document.body.appendChild(container)

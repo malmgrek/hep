@@ -1,28 +1,32 @@
-.cardSet .card {
+#container {
+    displat: block;
+    padding-top: 10.0em;
+    /* padding-bottom: 50%; */
+    max-width: 50%;
+    margin: auto;
+    background-color: #eee;
+    text-align: center;
+}
+
+#container .card {
    display: inline-block;
    width: 5.0em;
    height: 5.0em;
    border: 1px solid #666;
    border-radius: .3em;
-   -moz-border-radius: .3em;
-   -webkit-border-radius: .3em;
-   -khtml-border-radius: .3em;
    padding: .25em;
    margin: 0 .5em .5em 0;
    text-align: center;
    font-size: 1.2em;
-   /* @change: adjust this value to make bigger or smaller cards */
    font-weight: normal;
    font-family: Arial, sans-serif;
    position: relative;
    background-color: #fff;
-   -moz-box-shadow: .2em .2em .5em #333;
-   -webkit-box-shadow: .2em .2em .5em #333;
    box-shadow: .2em .2em .5em #333;
 }
 
 
-.cardSet .card .cardText {
+#container .card .cardText {
     margin: 0;
     position: absolute;
     top: 50%;
