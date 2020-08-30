@@ -1,11 +1,36 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+}
+
+* {
+    box-sizing: border-box;
+}
+
 #container {
-    displat: block;
-    padding-top: 10.0em;
-    /* padding-bottom: 50%; */
-    max-width: 50%;
-    margin: auto;
-    background-color: #eee;
+    padding-top: 5vh;
+    height: 100%;
+    width: 100%;
     text-align: center;
+}
+
+#container #number-of-cards {
+    font-size: 10vh;
+    width: 60vw;
+    text-align: center;
+    padding: 1vh;
+}
+
+#container #start {
+    width: 60vw;
+    padding: 1vh;
+    font-size: 5vh;
+    margin: 5vh;
 }
 
 #container .card {
