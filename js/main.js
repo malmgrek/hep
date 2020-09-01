@@ -40,12 +40,14 @@ function createCards(length = 4) {
 // NOTE: Let's create this mutable
 //       object here.
 //
+// TODO: Can we put this at the bottom?
 let cards = {array: [], mutated: false}
 // ====================================
 
 
+// TODO: d = document as argument
 function drawCard(cards) {
-    index = Math.floor(Math.random() * cards.array.length)
+    let index = Math.floor(Math.random() * cards.array.length)
     document.getElementById("container").appendChild(
         // Adds same element (possibly) many times
         cards.array.splice(index, 1).pop().cloneNode(true)
@@ -104,8 +106,8 @@ function createPanel(d) {
 
 
 function createInfo(d, text) {
-    div = d.createElement("div")
-    p = d.createElement("p")
+    let div = d.createElement("div")
+    let p = d.createElement("p")
     p.appendChild(d.createTextNode(text))
     p.style.fontSize = "5vh"
     p.style.fontFamily = "Courier"
