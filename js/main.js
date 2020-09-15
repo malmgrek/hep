@@ -19,17 +19,19 @@ function createCard(backgroundColor, text, fontSize = "20vw") {
 }
 
 
-const BD = createCard("#1e90ff", "BD")
-const BA = createCard("#1e90ff", "BA")
-const RD = createCard("#dc143c", "RD")
-const RA = createCard("#dc143c", "RA")
+const blue_defense = createCard("#1e90ff", "BD")
+const blue_offense = createCard("#1e90ff", "BO")
+const red_defense = createCard("#dc143c", "RD")
+const red_offense = createCard("#dc143c", "RO")
 const totenkopf = createCard("#666", "\u2620", "20vw")
 const radioactive = createCard("#ffd700", "\u2622", "20vw")
 const fu = createCard("#666", "🖕", "80px")
 
 
 function createCards(length = 4) {
-    let cardArray = [BD, BA, RD, RA].concat(
+    let cardArray = [
+        blue_defense, blue_offense, red_defense, red_offense
+    ].concat(
         Array(length - 4).fill(radioactive)
     )
     return {array: cardArray, mutated: false}
