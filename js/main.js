@@ -25,14 +25,14 @@ const red_defense = createCard("#dc143c", "RD")
 const red_offense = createCard("#dc143c", "RO")
 const totenkopf = createCard("#666", "\u2620", "20vw")
 const radioactive = createCard("#ffd700", "\u2622", "20vw")
-const fu = createCard("#666", "🖕", "80px")
+const fu = createCard("#666", "🖕", "20vw")
 
 
 function createCards(length = 4) {
     let cardArray = [
         blue_defense, blue_offense, red_defense, red_offense
     ].concat(
-        Array(length - 4).fill(radioactive)
+        Array(length - 4).fill(fu)
     )
     return {array: cardArray, mutated: false}
 }
