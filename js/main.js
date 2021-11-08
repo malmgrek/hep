@@ -32,30 +32,30 @@ const redOffense = createCard("#dc143c", "RO");
 const middleFinger = createCard("#666", "🖕", "20vw");
 
 
-/**
+/********************
  * Create a card deck
  */
-const createCardDeck = (length = 4) => {
+const createCards = (length = 4) => {
   let cards = [blueDefense, blueOffense, redDefense, redOffense].concat(
     Array(length - 4).fill(middleFinger));
-  return {cards: cards, mutated: false}
+  return cards
 }
 
 
 /************************************************************
  * Take a card from the card container and add to "container"
  */
-const sampleCard = (cardDeck, parentElement) => {
+const drawRandomCard = (cards, parentElement) => {
 
-  let index = Math.floor(Math.random() * cardDeck.cards.length);
+  let index = Math.floor(Math.random() * cards.length);
 
   // Remove a random card from deck
-  let card = cardDeck.cards.splice(index, 1).pop().cloneNode(true);
+  let card = cards.splice(index, 1).pop().cloneNode(true);
 
   // Adds same element (possibly) many times
   parentElement.appendChild(card);
 
-  return {cards: cardDeck.cards, mutated: true}
+  return cards
 
 }
 
@@ -105,7 +105,7 @@ const App = () => {
   // Button triggers re-creation of a new card deck
   // according player number given by the user
   startButton.addEventListener("click", () => {
-    cardDeck = createCardDeck(
+    let cards = createCards(
       document.getElementById("playersInput").value);
     samplingArea = document.getElementById("samplingArea");
     samplingArea.innerHTML = "";
@@ -114,12 +114,11 @@ const App = () => {
     // Add click (tap) detection to all over main container.
     // Triggers new random cards appearing on screen
     samplingArea.addEventListener("click", () => {
-        // TODO: Get rid of 'mutated'
-        cardDeck = (cardDeck.mutated && cardDeck.cards.length) ?
-        sampleCard(cardDeck, samplingArea) :
-        {cards: cardDeck.cards, mutated: true}
-    });
-  });
+      cards = cards.length ? drawRandomCard(cards, samplingArea) : cards
+      // Set as a capturing event, so it won't be captured by the button event
+      // that is bubbling under as a child.
+    }, true);
+  }, false);
 
   /**************************************
    * Render - Append elements to document
