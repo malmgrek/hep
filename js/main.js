@@ -28,6 +28,10 @@ const radioactive = createCard("#ffd700", "\u2622", "20vw")
 const fu = createCard("#666", "🖕", "20vw")
 
 
+
+/**
+ * Create a container object for the card deck
+ */
 function createCards(length = 4) {
     let cardArray = [
         blue_defense, blue_offense, red_defense, red_offense
@@ -39,15 +43,15 @@ function createCards(length = 4) {
 
 
 // ====================================
-// NOTE: Let's create this mutable
-//       object here.
-//
-// TODO: Can we put this at the bottom?
+// Create a mutable container of cards
+// drawn so far.
 let cards = {array: [], mutated: false}
 // ====================================
 
 
-// TODO: d = document as argument
+/**
+ * Take a card from the card container and add to "container"
+ */
 function drawCard(cards) {
     let index = Math.floor(Math.random() * cards.array.length)
     document.getElementById("container").appendChild(
@@ -58,47 +62,49 @@ function drawCard(cards) {
 }
 
 
-function createContainer(d) {
+/**
+ * Create a container where we can draw new cards by tapping
+ */
+function createContainer() {
 
     const mutate = () => {
         cards.mutated = true
     }
 
-    let container = d.createElement("div")
+    let container = document.createElement("div")
     container.id = "container"
-    container.onclick = () => {
+    container.addEventListener("click", () => {
         (cards.mutated && cards.array.length) ?
             drawCard(cards) : mutate()
-    }
+    })
     return container
 }
 
 
-function createPanel(d) {
+/**
+ * Build the main component
+ */
+function createPanel() {
 
-    let panel = d.createElement("div")
+    let panel = document.createElement("div")
     panel.className = "panel"
 
-    let input = d.createElement("input")
+    let input = document.createElement("input")
     input.type = "number"
     input.id = "number-of-cards"
     input.min = 4
     input.value = 4
     input.autocomplete = "off"
 
-    let start = d.createElement("button")
+    let start = document.createElement("button")
     start.id = "start"
-    start.appendChild(d.createTextNode("Hep!"))
-    start.onclick = () => {
-        cards = createCards(
-            d.getElementById("number-of-cards").value
-        )
-        container = d.getElementById("container")
+    start.appendChild(document.createTextNode("Hep!"))
+    start.addEventListener("click", () => {
+        cards = createCards(document.getElementById("number-of-cards").value)
+        container = document.getElementById("container")
         container.innerHTML = ""
-        container.appendChild(
-            createInfo(d, "Tap screen to draw cards!")
-        )
-    }
+        container.appendChild(createInfo(document, "Tap screen to draw cards!"))
+    })
 
     panel.appendChild(input)
     panel.appendChild(start)
@@ -107,10 +113,10 @@ function createPanel(d) {
 }
 
 
-function createInfo(d, text) {
-    let div = d.createElement("div")
-    let p = d.createElement("p")
-    p.appendChild(d.createTextNode(text))
+function createInfo(text) {
+    let div = document.createElement("div")
+    let p = document.createElement("p")
+    p.appendChild(document.createTextNode(text))
     p.style.fontSize = "5vh"
     p.style.fontFamily = "Courier"
     div.appendChild(p)
@@ -122,12 +128,9 @@ function createInfo(d, text) {
 // Build document body
 //
 
-container = createContainer(document)
-container.appendChild(
-    createInfo(
-        document,
-        "Select the number of players and click Hep!"
-    )
-)
-container.appendChild(createPanel(document))
+container = createContainer()
+container.appendChild(createInfo(
+    "Select the number of players and click Hep!"
+))
+container.appendChild(createPanel())
 document.body.appendChild(container)
