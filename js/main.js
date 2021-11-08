@@ -1,9 +1,9 @@
-/*
- * Hep! Random draw foosball teams.
+/*********************************
+ * Hep! Random draw foosball teams
  */
 
 
-/**
+/**************************
  * Create player card div's
  */
 const createCard = (bgColor, text, fontSize = "20vw") => {
@@ -22,29 +22,27 @@ const createCard = (bgColor, text, fontSize = "20vw") => {
 }
 
 
-/**
+/*******************************
  * Collection of available cards
  */
-const blue_defense = createCard("#1e90ff", "BD");
-const blue_offense = createCard("#1e90ff", "BO");
-const red_defense = createCard("#dc143c", "RD");
-const red_offense = createCard("#dc143c", "RO");
-// const totenkopf = createCard("#666", "\u2620", "20vw");
-// const radioactive = createCard("#ffd700", "\u2622", "20vw");
-const fu = createCard("#666", "🖕", "20vw");
+const blueDefense = createCard("#1e90ff", "BD");
+const blueOffense = createCard("#1e90ff", "BO");
+const redDefense = createCard("#dc143c", "RD");
+const redOffense = createCard("#dc143c", "RO");
+const middleFinger = createCard("#666", "🖕", "20vw");
 
 
 /**
  * Create a card deck
  */
 const createCardDeck = (length = 4) => {
-  let cards = [blue_defense, blue_offense, red_defense, red_offense].concat(
-    Array(length - 4).fill(fu));
+  let cards = [blueDefense, blueOffense, redDefense, redOffense].concat(
+    Array(length - 4).fill(middleFinger));
   return {cards: cards, mutated: false}
 }
 
 
-/**
+/************************************************************
  * Take a card from the card container and add to "container"
  */
 const sampleCard = (cardDeck, parentElement) => {
@@ -78,17 +76,17 @@ const createTextDiv = (text) => {
 
 const App = () => {
 
-  /*************************
-   * Create main container *
-   *************************/
+  /***********************
+   * Create main container
+   */
   let samplingArea = document.createElement("div");
   samplingArea.id = "samplingArea";
   samplingArea.appendChild(createTextDiv(
     "Select the number of players and click Hep!"));
 
-  /************************
-   * Create control panel *
-   ************************/
+  /**********************
+   * Create control panel
+   */
   let controlPanel = document.createElement("div");
   controlPanel.className = "ControlPanel";
 
@@ -123,9 +121,9 @@ const App = () => {
     });
   });
 
-  /****************************************
-   * Render - Append elements to document *
-   ****************************************/
+  /**************************************
+   * Render - Append elements to document
+   */
   controlPanel.appendChild(playersInput);
   controlPanel.appendChild(startButton);
   samplingArea.appendChild(controlPanel);
@@ -136,7 +134,7 @@ const App = () => {
 }
 
 
-/**
+/*********
  * Run app
  */
 let status = App();
