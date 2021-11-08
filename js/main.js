@@ -1,9 +1,9 @@
-/*********************************
+/*
  * Hep! Random draw foosball teams
  */
 
 
-/**************************
+/*
  * Create player card div's
  */
 const createCard = (bgColor, text, fontSize = "20vw") => {
@@ -22,7 +22,7 @@ const createCard = (bgColor, text, fontSize = "20vw") => {
 }
 
 
-/*******************************
+/*
  * Collection of available cards
  */
 const blueDefense = createCard("#1e90ff", "BD");
@@ -32,7 +32,7 @@ const redOffense = createCard("#dc143c", "RO");
 const middleFinger = createCard("#666", "🖕", "20vw");
 
 
-/********************
+/*
  * Create a card deck
  */
 const createCards = (length = 4) => {
@@ -42,7 +42,7 @@ const createCards = (length = 4) => {
 }
 
 
-/************************************************************
+/*
  * Take a card from the card container and add to "container"
  */
 const drawRandomCard = (cards, parentElement) => {
@@ -76,7 +76,7 @@ const createTextDiv = (text) => {
 
 const App = () => {
 
-  /***********************
+  /*
    * Create main container
    */
   let samplingArea = document.createElement("div");
@@ -84,7 +84,7 @@ const App = () => {
   samplingArea.appendChild(createTextDiv(
     "Select the number of players and click Hep!"));
 
-  /**********************
+  /*
    * Create control panel
    */
   let controlPanel = document.createElement("div");
@@ -120,7 +120,7 @@ const App = () => {
     }, true);
   }, false);
 
-  /**************************************
+  /*
    * Render - Append elements to document
    */
   controlPanel.appendChild(playersInput);
@@ -133,7 +133,7 @@ const App = () => {
 }
 
 
-/*********
+/*
  * Run app
  */
 let status = App();

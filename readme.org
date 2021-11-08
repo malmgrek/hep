@@ -1,5 +1,7 @@
 #+TITLE: Readme
 
-Everyone who has played the great game of foosball knows how difficult it is to quickly random draw the four teams. No need to worry anymore, with this app you can do it and only it.
+Everyone who has played foosball (table football) knows how hard it sometimes is
+to quickly random draw the two two-player teams. No need to worry anymore, with
+this app you can do it.
 
-Link: [[https://malmgrek.github.io/hep/]]
+Link to app: [[https://malmgrek.github.io/hep/]]
