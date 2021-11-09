@@ -77,11 +77,11 @@ const createTextDiv = (text) => {
 const App = () => {
 
   /*
-   * Create main container
+   * Create main container for tapping
    */
-  let samplingArea = document.createElement("div");
-  samplingArea.id = "samplingArea";
-  samplingArea.appendChild(createTextDiv(
+  let tappingArea = document.createElement("div");
+  tappingArea.id = "tappingArea";
+  tappingArea.appendChild(createTextDiv(
     "Select the number of players and click Hep!"));
 
   /*
@@ -107,14 +107,14 @@ const App = () => {
   startButton.addEventListener("click", () => {
     let cards = createCards(
       document.getElementById("playersInput").value);
-    samplingArea = document.getElementById("samplingArea");
-    samplingArea.innerHTML = "";
-    samplingArea.appendChild(createTextDiv(
+    tappingArea = document.getElementById("tappingArea");
+    tappingArea.innerHTML = "";
+    tappingArea.appendChild(createTextDiv(
       "Tap screen to draw cards!"));
     // Add click (tap) detection to all over main container.
     // Triggers new random cards appearing on screen
-    samplingArea.addEventListener("click", () => {
-      cards = cards.length ? drawRandomCard(cards, samplingArea) : cards
+    tappingArea.addEventListener("click", () => {
+      cards = cards.length ? drawRandomCard(cards, tappingArea) : cards
       // Set as a capturing event, so it won't be captured by the button event
       // that is bubbling under as a child.
     }, true);
@@ -125,8 +125,8 @@ const App = () => {
    */
   controlPanel.appendChild(playersInput);
   controlPanel.appendChild(startButton);
-  samplingArea.appendChild(controlPanel);
-  document.body.appendChild(samplingArea);
+  tappingArea.appendChild(controlPanel);
+  document.body.appendChild(tappingArea);
 
   return true
 

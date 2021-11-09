@@ -12,7 +12,7 @@ body {
     box-sizing: border-box;
 }
 
-#samplingArea {
+#tappingArea {
     padding-top: 5vh;
     height: 100%;
     width: 100%;
@@ -20,7 +20,7 @@ body {
     font-family: Courier;
 }
 
-#samplingArea #playersInput {
+#tappingArea #playersInput {
     font-size: 5vh;
     width: 60vw;
     text-align: center;
@@ -28,13 +28,13 @@ body {
     margin-top: 5vh;
 }
 
-#samplingArea #startButton {
+#tappingArea #startButton {
     width: 60vw;
     font-size: 5vh;
     margin: 5vh;
 }
 
-#samplingArea .Card {
+#tappingArea .Card {
    display: inline-block;
    width: 40vw;
    height: 40vw;
@@ -46,7 +46,7 @@ body {
 }
 
 
-#samplingArea .Card .CardText {
+#tappingArea .Card .CardText {
     color: #fff;
     font-weight: bold;
     font-family: Arial;
