@@ -127,4 +127,4 @@ const App = () => {
 /*
  * Run application
  */
-let status = App();
+const status = App();
