@@ -4,9 +4,9 @@
 
 
 /*
- * Create player card div's
+ * Creates a card div
  */
-const createCard = (bgColor, text, fontSize = "20vw") => {
+const Card = (bgColor, text, fontSize = "20vw") => {
 
   let cardText = document.createElement("span");
   cardText.className = "CardText";
@@ -25,42 +25,46 @@ const createCard = (bgColor, text, fontSize = "20vw") => {
 /*
  * Collection of available cards
  */
-const blueDefense = createCard("#1e90ff", "BD");
-const blueOffense = createCard("#1e90ff", "BO");
-const redDefense = createCard("#dc143c", "RD");
-const redOffense = createCard("#dc143c", "RO");
-const middleFinger = createCard("#666", "🖕", "20vw");
+const blueDefense = Card("#1e90ff", "BD");
+const blueOffense = Card("#1e90ff", "BO");
+const redDefense = Card("#dc143c", "RD");
+const redOffense = Card("#dc143c", "RO");
+const middleFinger = Card("#666", "🖕", "20vw");
 
 
 /*
- * Create a card deck
+ * Creates a card deck
  */
-const createCards = (length = 4) => {
-  let cards = [blueDefense, blueOffense, redDefense, redOffense].concat(
+const createCardDeck = (length = 4) => {
+  let cardDeck = [blueDefense, blueOffense, redDefense, redOffense].concat(
     Array(length - 4).fill(middleFinger));
-  return cards
+  return cardDeck
 }
 
 
 /*
- * Take a card from the card container and add to "container"
+ * Takes a card from the card container and add to "container"
  */
-const drawRandomCard = (cards, parentElement) => {
+const drawRandomCard = (cardDeck, parentElement) => {
 
-  let index = Math.floor(Math.random() * cards.length);
+  let index = Math.floor(Math.random() * cardDeck.length);
 
   // Remove a random card from deck
-  let card = cards.splice(index, 1).pop().cloneNode(true);
+  // TODO: Immutable
+  let card = cardDeck.splice(index, 1).pop().cloneNode(true);
 
   // Adds same element (possibly) many times
   parentElement.appendChild(card);
 
-  return cards
+  return cardDeck
 
 }
 
 
-const createTextDiv = (text) => {
+/**
+ * Creates a div with a text
+ */
+const TextDiv = (text) => {
 
   let p = document.createElement("p");
   p.appendChild(document.createTextNode(text));
@@ -74,6 +78,9 @@ const createTextDiv = (text) => {
 }
 
 
+/**
+ * Application
+ */
 const App = () => {
 
   /*
@@ -81,7 +88,7 @@ const App = () => {
    */
   let tappingArea = document.createElement("div");
   tappingArea.id = "tappingArea";
-  tappingArea.appendChild(createTextDiv(
+  tappingArea.appendChild(TextDiv(
     "Select the number of players and click Hep!"));
 
   /*
@@ -105,16 +112,16 @@ const App = () => {
   // Button triggers re-creation of a new card deck
   // according player number given by the user
   startButton.addEventListener("click", () => {
-    let cards = createCards(
+    let cardDeck = createCardDeck(
       document.getElementById("playersInput").value);
     tappingArea = document.getElementById("tappingArea");
     tappingArea.innerHTML = "";
-    tappingArea.appendChild(createTextDiv(
-      "Tap screen to draw cards!"));
+    tappingArea.appendChild(TextDiv("Tap screen to draw cards!"));
     // Add click (tap) detection to all over main container.
     // Triggers new random cards appearing on screen
     tappingArea.addEventListener("click", () => {
-      cards = cards.length ? drawRandomCard(cards, tappingArea) : cards
+      cardDeck = cardDeck.length ?
+        drawRandomCard(cardDeck, tappingArea) : cardDeck
       // Set as a capturing event, so it won't be captured by the button event
       // that is bubbling under as a child.
     }, true);
@@ -134,6 +141,6 @@ const App = () => {
 
 
 /*
- * Run app
+ * Run application
  */
 let status = App();
