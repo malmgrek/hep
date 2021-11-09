@@ -7,18 +7,15 @@
  * Creates a card div
  */
 const Card = (bgColor, text, id = null, fontSize = "20vw") => {
-
-  let cardText = document.createElement("span");
+  const cardText = document.createElement("span");
   cardText.className = "CardText";
   cardText.style.fontSize = fontSize;
   cardText.appendChild(document.createTextNode(text));
-
-  let card = document.createElement("div");
+  const card = document.createElement("div");
   card.className = "Card";
   card.id = id;
   card.style.backgroundColor = bgColor;
   card.appendChild(cardText);
-
   return card
 }
 
@@ -46,7 +43,7 @@ const createCardDeck = (length = 4) => {
  * Takes a random card from the card deck and adds it to parent element
  */
 const drawRandomCard = (cardDeck, parentElement) => {
-  let index = Math.floor(Math.random() * cardDeck.length);
+  const index = Math.floor(Math.random() * cardDeck.length);
   parentElement.appendChild(cardDeck[index]);
   return [...cardDeck.slice(0, index), ...cardDeck.slice(index + 1)]
 }
@@ -56,15 +53,12 @@ const drawRandomCard = (cardDeck, parentElement) => {
  * Creates a div with a text
  */
 const TextDiv = (text) => {
-
-  let p = document.createElement("p");
+  const p = document.createElement("p");
   p.appendChild(document.createTextNode(text));
   p.style.fontSize = "5vh";
   p.style.fontFamily = "Courier";
-
-  let div = document.createElement("div");
+  const div = document.createElement("div");
   div.appendChild(p);
-
   return div
 }
 
@@ -77,7 +71,7 @@ const App = () => {
   /*
    * Create main container for tapping
    */
-  let tappingArea = document.createElement("div");
+  const tappingArea = document.createElement("div");
   tappingArea.id = "tappingArea";
   tappingArea.appendChild(TextDiv(
     "Select the number of players and click Hep!"));
@@ -85,11 +79,11 @@ const App = () => {
   /*
    * Create control panel
    */
-  let controlPanel = document.createElement("div");
+  const controlPanel = document.createElement("div");
   controlPanel.className = "ControlPanel";
 
   // Input field that defines number of players
-  let playersInput = document.createElement("input");
+  const playersInput = document.createElement("input");
   playersInput.type = "number";
   playersInput.id = "playersInput";
   playersInput.min = 4;
@@ -97,7 +91,7 @@ const App = () => {
   playersInput.autocomplete = "off";
 
   // Hep! button that initializes the card sampling loop
-  let startButton = document.createElement("button");
+  const startButton = document.createElement("button");
   startButton.id = "startButton";
   startButton.appendChild(document.createTextNode("Hep!"));
   // Button triggers re-creation of a new card deck
@@ -105,7 +99,6 @@ const App = () => {
   startButton.addEventListener("click", () => {
     let cardDeck = createCardDeck(
       document.getElementById("playersInput").value);
-    tappingArea = document.getElementById("tappingArea");
     tappingArea.innerHTML = "";
     tappingArea.appendChild(TextDiv("Tap screen to draw cards!"));
     // Add click (tap) detection to all over main container.
