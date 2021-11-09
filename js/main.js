@@ -6,7 +6,7 @@
 /*
  * Creates a card div
  */
-const Card = (bgColor, text, fontSize = "20vw") => {
+const Card = (bgColor, text, id = null, fontSize = "20vw") => {
 
   let cardText = document.createElement("span");
   cardText.className = "CardText";
@@ -15,6 +15,7 @@ const Card = (bgColor, text, fontSize = "20vw") => {
 
   let card = document.createElement("div");
   card.className = "Card";
+  card.id = id;
   card.style.backgroundColor = bgColor;
   card.appendChild(cardText);
 
@@ -23,41 +24,31 @@ const Card = (bgColor, text, fontSize = "20vw") => {
 
 
 /*
- * Collection of available cards
- */
-const blueDefense = Card("#1e90ff", "BD");
-const blueOffense = Card("#1e90ff", "BO");
-const redDefense = Card("#dc143c", "RD");
-const redOffense = Card("#dc143c", "RO");
-const middleFinger = Card("#666", "🖕", "20vw");
-
-
-/*
- * Creates a card deck
+ * Creates a card deck with fixed order
  */
 const createCardDeck = (length = 4) => {
-  let cardDeck = [blueDefense, blueOffense, redDefense, redOffense].concat(
-    Array(length - 4).fill(middleFinger));
-  return cardDeck
+  // Add unique id's to each card div so that (possible) multiple
+  // instances of same card can be added to container element
+  const blueDefense = Card("#1e90ff", "BD", "card0");
+  const blueOffense = Card("#1e90ff", "BO", "card1");
+  const redDefense = Card("#dc143c", "RD", "card2");
+  const redOffense = Card("#dc143c", "RO", "card3");
+  const middleFingers = [...Array(length - 4).keys()].map(
+    i => Card("#666", "🖕", `Card${String(4 + i)}`));
+  return [blueDefense,
+          blueOffense,
+          redDefense,
+          redOffense].concat(middleFingers)
 }
 
 
 /*
- * Takes a card from the card container and add to "container"
+ * Takes a random card from the card deck and adds it to parent element
  */
 const drawRandomCard = (cardDeck, parentElement) => {
-
   let index = Math.floor(Math.random() * cardDeck.length);
-
-  // Remove a random card from deck
-  // TODO: Immutable
-  let card = cardDeck.splice(index, 1).pop().cloneNode(true);
-
-  // Adds same element (possibly) many times
-  parentElement.appendChild(card);
-
-  return cardDeck
-
+  parentElement.appendChild(cardDeck[index]);
+  return [...cardDeck.slice(0, index), ...cardDeck.slice(index + 1)]
 }
 
 
