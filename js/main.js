@@ -42,8 +42,11 @@ const createCardDeck = (length = 4) => {
 /*
  * Takes a random card from the card deck and adds it to parent element
  */
-const drawRandomCard = (cardDeck, parentElement) => {
-  const index = Math.floor(Math.random() * cardDeck.length);
+const drawRandomCard = (cardDeck, parentElement, initialDeckSize, initialPrivileged) => {
+  const dealt = initialDeckSize - cardDeck.length;
+  const privileged = Math.max(initialPrivileged - dealt, 0);
+  const maxIndex = (privileged > 0 ? 4 - dealt : cardDeck.length) - 1;
+  const index = Math.ceil(Math.random() * maxIndex);
   parentElement.appendChild(cardDeck[index]);
   return [...cardDeck.slice(0, index), ...cardDeck.slice(index + 1)]
 }
@@ -72,9 +75,9 @@ const App = () => {
    * Create main container for tapping
    */
   const tappingArea = document.createElement("div");
-  tappingArea.id = "tappingArea";
+  tappingArea.className = "TappingArea";
   tappingArea.appendChild(TextDiv(
-    "Select the number of players and click Hep!"));
+    "Select the number of players, number of privileged players and click Hep!"));
 
   /*
    * Create control panel
@@ -84,28 +87,37 @@ const App = () => {
 
   // Input field that defines number of players
   const playersInput = document.createElement("input");
+  playersInput.id = "playersInput"
   playersInput.type = "number";
-  playersInput.id = "playersInput";
   playersInput.min = 4;
   playersInput.value = 4;
   playersInput.autocomplete = "off";
 
+  const privilegedInput = document.createElement("input");
+  privilegedInput.id = "privilegedInput";
+  privilegedInput.type = "range";
+  privilegedInput.max = 4;
+  privilegedInput.value = 0;
+
   // Hep! button that initializes the card sampling loop
   const startButton = document.createElement("button");
-  startButton.id = "startButton";
   startButton.appendChild(document.createTextNode("Hep!"));
   // Button triggers re-creation of a new card deck
   // according player number given by the user
   startButton.addEventListener("click", () => {
-    let cardDeck = createCardDeck(
-      document.getElementById("playersInput").value);
+    const initialDeckSize = document.getElementById("playersInput").value;
+    const initialPrivileged = document.getElementById("privilegedInput").value;
+    let cardDeck = createCardDeck(initialDeckSize);
     tappingArea.innerHTML = "";
     tappingArea.appendChild(TextDiv("Tap screen to draw cards!"));
     // Add click (tap) detection to all over main container.
     // Triggers new random cards appearing on screen
     tappingArea.addEventListener("click", () => {
       cardDeck = cardDeck.length ?
-        drawRandomCard(cardDeck, tappingArea) : cardDeck
+        drawRandomCard(cardDeck,
+                       tappingArea,
+                       initialDeckSize,
+                       initialPrivileged) : cardDeck
       // Set as a capturing event, so it won't be captured by the button event
       // that is bubbling under as a child.
     }, true);
@@ -115,6 +127,7 @@ const App = () => {
    * Render - Append elements to document
    */
   controlPanel.appendChild(playersInput);
+  controlPanel.appendChild(privilegedInput);
   controlPanel.appendChild(startButton);
   tappingArea.appendChild(controlPanel);
   document.body.appendChild(tappingArea);
