@@ -58,7 +58,7 @@ const drawRandomCard = (cardDeck, parentElement, initialDeckSize, initialPrivile
 const TextDiv = (text) => {
   const p = document.createElement("p");
   p.appendChild(document.createTextNode(text));
-  p.style.fontSize = "5vh";
+  p.style.fontSize = "7vw";
   p.style.fontFamily = "Courier";
   const div = document.createElement("div");
   div.appendChild(p);
@@ -76,8 +76,6 @@ const App = () => {
    */
   const tappingArea = document.createElement("div");
   tappingArea.className = "TappingArea";
-  tappingArea.appendChild(TextDiv(
-    "Select the number of players, number of privileged players and click Hep!"));
 
   /*
    * Create control panel
@@ -130,6 +128,8 @@ const App = () => {
   controlPanel.appendChild(privilegedInput);
   controlPanel.appendChild(startButton);
   tappingArea.appendChild(controlPanel);
+  tappingArea.appendChild(TextDiv(
+    "Select the number of regular and privileged players, and click Hep!"));
   document.body.appendChild(tappingArea);
 
   return true
