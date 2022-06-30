@@ -58,12 +58,12 @@ const draw = (cardDeck, initialDeckSize, initialPrivileged) => {
 /**
  * Creates a div with a text
  */
-const TextDiv = (text) => {
+const TextDiv = (text, fontSize = "5vw", margin = "0 0 0 0") => {
   const p = document.createElement("p");
   p.appendChild(document.createTextNode(text));
-  p.style.fontSize = "5vw";
+  p.style.fontSize = fontSize;
   p.style.fontFamily = "Courier";
-  p.style.margin = "0 0 0 0";
+  p.style.margin = margin;
   const div = document.createElement("div");
   div.appendChild(p);
   return div
@@ -123,7 +123,8 @@ const App = () => {
     let drawResult = {};
     let teamCards = [];
     tappingArea.innerHTML = "";
-    tappingArea.appendChild(TextDiv("Tap screen to draw cards!"));
+    tappingArea.appendChild(
+      TextDiv("Tap screen to draw cards!", "7vw", "0 0 4vw 0"));
     // Add click (tap) detection to all over main container.
     // Triggers new random cards appearing on screen
     tappingArea.addEventListener("click", () => {
